@@ -40,7 +40,7 @@ function noSearchDefaultPageRender() {
 const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? "g";
 const defaultBang = bangs.find((b) => b.t === LS_DEFAULT_BANG);
 
-function getBangredirectUrl() {
+function getBangRedirectUrl() {
   const url = new URL(window.location.href);
   const query = url.searchParams.get("q")?.trim() ?? "";
   if (!query) {
@@ -69,7 +69,7 @@ function getBangredirectUrl() {
 }
 
 function doRedirect() {
-  const searchUrl = getBangredirectUrl();
+  const searchUrl = getBangRedirectUrl();
   if (!searchUrl) return;
   window.location.replace(searchUrl);
 }
