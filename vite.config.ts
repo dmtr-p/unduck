@@ -15,7 +15,7 @@ export default defineConfig({
           dest: '',
           transform: (content) => {
             const siteDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL
-              ? `https://${process.env.VERCEL_URL}`
+              ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
               : 'http://localhost:5173'; 
             return content.toString().replace(/%origin%/g, siteDomain);
           },
