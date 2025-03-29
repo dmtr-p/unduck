@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^22.13.14",
     "typescript": "~5.7.3",
-    "vite": "^6.2.2"
+    "vite": "^6.2.2",
+    "vite-plugin-static-copy": "^2.3.0"
   },
   "dependencies": {
     "vite-plugin-pwa": "^0.21.1"
