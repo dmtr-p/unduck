@@ -3,29 +3,17 @@ import "./global.css";
 
 function noSearchDefaultPageRender() {
   const app = document.querySelector<HTMLDivElement>("#app")!;
-  app.innerHTML = `
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-      <div class="content-container">
-        <h1>Und*ck</h1>
-        <p>DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser. Enables <a href="https://duckduckgo.com/bang.html" target="_blank">all of DuckDuckGo's bangs.</a></p>
-        <div class="url-container"> 
-          <input 
-            type="text" 
-            class="url-input"
-            value="${window.location.origin}/?q=%s"
-            readonly 
-          />
-          <button class="copy-button">
-            <img src="/clipboard.svg" alt="Copy" />
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
+  const template = document.querySelector<HTMLTemplateElement>("template")!;
+  const content = template.content.cloneNode(true) as DocumentFragment;
+  
+  app.innerHTML = "";
+  app.appendChild(content);
+  const urlInput = app.querySelector<HTMLInputElement>(".url-input")!;
+
+  urlInput.value = `${window.location.origin}/?q=%s`;
 
   const copyButton = app.querySelector<HTMLButtonElement>(".copy-button")!;
-  const copyIcon = copyButton.querySelector("img")!;
-  const urlInput = app.querySelector<HTMLInputElement>(".url-input")!;
+  const copyIcon = copyButton.querySelector("img")!;  
 
   copyButton.addEventListener("click", async () => {
     await navigator.clipboard.writeText(urlInput.value);
