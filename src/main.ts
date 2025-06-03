@@ -5,7 +5,7 @@ function noSearchDefaultPageRender() {
   const app = document.querySelector<HTMLDivElement>("#app")!;
   const template = document.querySelector<HTMLTemplateElement>("template")!;
   const content = template.content.cloneNode(true) as DocumentFragment;
-  
+
   app.innerHTML = "";
   app.appendChild(content);
   const urlInput = app.querySelector<HTMLInputElement>(".url-input")!;
@@ -13,7 +13,7 @@ function noSearchDefaultPageRender() {
   urlInput.value = `${window.location.origin}/?q=%s`;
 
   const copyButton = app.querySelector<HTMLButtonElement>(".copy-button")!;
-  const copyIcon = copyButton.querySelector("img")!;  
+  const copyIcon = copyButton.querySelector("img")!;
 
   copyButton.addEventListener("click", async () => {
     await navigator.clipboard.writeText(urlInput.value);
@@ -26,7 +26,7 @@ function noSearchDefaultPageRender() {
 }
 
 const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? "g";
-const defaultBang = bangs.find((b) => b.t === LS_DEFAULT_BANG);
+const defaultBang = bangs[LS_DEFAULT_BANG as keyof typeof bangs];
 
 function getBangRedirectUrl() {
   const url = new URL(window.location.href);
@@ -39,7 +39,8 @@ function getBangRedirectUrl() {
   const match = query.match(/!(\S+)/i);
 
   const bangCandidate = match?.[1]?.toLowerCase();
-  const selectedBang = bangs.find((b) => b.t === bangCandidate) ?? defaultBang;
+  const selectedBang =
+    bangs[bangCandidate as keyof typeof bangs] ?? defaultBang;
 
   // Remove the first bang from the query
   const cleanQuery = query.replace(/!\S+\s*/i, "").trim();
@@ -53,7 +54,7 @@ function getBangRedirectUrl() {
   const searchUrl = selectedBang?.u.replace(
     "{{{s}}}",
     // Replace %2F with / to fix formats like "!ghr+t3dotgg/unduck"
-    encodeURIComponent(cleanQuery).replace(/%2F/g, "/"),
+    encodeURIComponent(cleanQuery).replace(/%2F/g, "/")
   );
   if (!searchUrl) return null;
 
