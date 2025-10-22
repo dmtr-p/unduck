@@ -27,6 +27,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+  --surface-color: #f7f7f7;
+  --surface-border: #e1e1e1;
+  --surface-hover: #efefef;
+  --focus-ring: rgba(15, 23, 42, 0.12);
+  --accent-color: #1f1f1f;
+  --accent-hover: #2a2a2a;
+  --accent-active: #151515;
+  --accent-contrast: #ffffff;
+  --muted-text: #6f6f6f;
 }
 
 * {
@@ -78,89 +88,122 @@ textarea {
   font: inherit;
 }
 
-/* Add these new styles */
+
 .search-container {
-  margin-top: 24px;
+  margin: 0;
   width: 100%;
 }
 
 .search-form {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  background-color: var(--surface-color);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-form:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
 .search-input {
   flex: 1;
-  padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 999px;
-  background: #fff;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  min-width: 0;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  appearance: none;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #888;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.search-input::placeholder {
+  color: var(--muted-text);
 }
 
 .search-button {
-  padding: 10px 20px;
-  background: #1a1a1a;
-  color: #fff;
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  background: var(--accent-color);
+  color: var(--accent-contrast);
+  border-radius: 10px;
   font-weight: 600;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
 }
 
 .search-button:hover {
-  background: #333;
+  background: var(--accent-hover);
 }
 
 .search-button:active {
+  background: var(--accent-active);
   transform: translateY(1px);
 }
 
-.url-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 16px;
+.search-button:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
-/* Add this new style */
+
+.url-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
 .content-container {
+  display: grid;
+  gap: 24px;
+  justify-items: center;
   max-width: 36rem;
   text-align: center;
-  padding: 0 8px;
+  padding: 0 12px;
 }
 
 /* Update url-input width to be 100% since container will control max width */
 .url-input {
   padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
   width: 100%;
-  background: #f5f5f5;
+  background: var(--surface-color);
+  color: inherit;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
+
 .copy-button {
-  padding: 8px;
-  color: #666;
-  border-radius: 4px;
-  transition: all 0.2s;
+  padding: 10px;
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  background: var(--surface-color);
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .copy-button:hover {
-  background: #f0f0f0;
+  border-color: var(--accent-color);
+  background: var(--surface-hover);
 }
 
 .copy-button:active {
-  background: #e5e5e5;
+  transform: translateY(1px);
 }
 
 .copy-button img {
@@ -170,6 +213,12 @@ textarea {
 
 .copy-button.copied {
   background: #28a745;
+  border-color: #28a745;
+  box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.18);
+}
+
+.copy-button.copied img {
+  filter: invert(1);
 }
 
 /* Add footer styles */
@@ -194,6 +243,18 @@ textarea {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --surface-color: #161616;
+    --surface-border: #2a2a2a;
+    --surface-hover: #1f1f1f;
+    --focus-ring: rgba(255, 255, 255, 0.18);
+    --accent-color: #f5f5f5;
+    --accent-hover: #e4e4e4;
+    --accent-active: #d6d6d6;
+    --accent-contrast: #131313;
+    --muted-text: #9d9d9d;
+  }
+
   body {
     color: #ddd;
   }
@@ -219,41 +280,15 @@ textarea {
     color: #ccc;
   }
 
-  .url-input {
-    border-color: #3d3d3d;
-    background-color: #191919;
-    color: #fff;
+  .search-form {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
   }
 
-  .search-input {
-    border-color: #3d3d3d;
-    background-color: #131313;
-    color: #fff;
-  }
-
-  .search-input:focus {
-    border-color: #666;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-  }
-
-  .search-button {
-    background: #f5f5f5;
-    color: #131313;
-  }
-
-  .search-button:hover {
-    background: #e0e0e0;
+  .search-button:focus-visible {
+    outline-color: rgba(255, 255, 255, 0.7);
   }
 
   .copy-button img {
     filter: invert(1);
-  }
-
-  .copy-button:hover {
-    background: #222;
-  }
-
-  .copy-button:active {
-    background: #333;
   }
 }

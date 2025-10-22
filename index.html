@@ -27,8 +27,10 @@
           Enables <a href="https://duckduckgo.com/bang.html" target="_blank">all of DuckDuckGo's bangs.</a></p>
         <p>Try it out by searching below — bang shortcuts work just like they do from your address bar.</p>
         <div class="search-container">
-          <form class="search-form">
-            <input type="search" class="search-input" placeholder="Search with Unduck" aria-label="Search query" />
+          <form class="search-form" role="search" aria-label="Try a bang search">
+            <input type="search" class="search-input" id="search-query" name="q"
+              placeholder="Search with Unduck (try !g)" aria-label="Search query" autocomplete="off" inputmode="search"
+              spellcheck="false" />
             <button type="submit" class="search-button">Search</button>
           </form>
         </div>
