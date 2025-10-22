@@ -9,8 +9,21 @@ function noSearchDefaultPageRender() {
   app.innerHTML = "";
   app.appendChild(content);
   const urlInput = app.querySelector<HTMLInputElement>(".url-input")!;
+  const searchForm = app.querySelector<HTMLFormElement>(".search-form")!;
+  const searchInput = app.querySelector<HTMLInputElement>(".search-input")!;
 
   urlInput.value = `${window.location.origin}/?q=%s`;
+  searchInput.focus();
+
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("q", query);
+    window.location.href = url.toString();
+  });
 
   const copyButton = app.querySelector<HTMLButtonElement>(".copy-button")!;
   const copyIcon = copyButton.querySelector("img")!;
