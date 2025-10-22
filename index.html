@@ -25,6 +25,14 @@
         <h1>Und*ck</h1>
         <p>DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser.
           Enables <a href="https://duckduckgo.com/bang.html" target="_blank">all of DuckDuckGo's bangs.</a></p>
+        <div class="search-container">
+          <form class="search-form" autocomplete="off">
+            <label class="sr-only" for="search-input">Search query</label>
+            <input id="search-input" class="search-input" type="search" name="q"
+              placeholder="Try typing !g unduck" />
+            <button class="search-button" type="submit">Search</button>
+          </form>
+        </div>
         <div class="url-container">
           <input type="url" class="url-input" value="" readonly />
           <button class="copy-button">

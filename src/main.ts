@@ -23,6 +23,25 @@ function noSearchDefaultPageRender() {
       copyIcon.src = "/clipboard.svg";
     }, 2000);
   });
+
+  const searchForm = app.querySelector<HTMLFormElement>(".search-form");
+  const searchInput = app.querySelector<HTMLInputElement>(".search-input");
+
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = searchInput.value.trim();
+
+      if (!query) {
+        searchInput.focus();
+        return;
+      }
+
+      const nextUrl = new URL(window.location.href);
+      nextUrl.searchParams.set("q", query);
+      window.location.href = nextUrl.toString();
+    });
+  }
 }
 
 const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? "g";
