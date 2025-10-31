@@ -171,7 +171,7 @@ textarea {
   display: grid;
   gap: 24px;
   justify-items: center;
-  max-width: 36rem;
+  max-width: 44rem;
   text-align: center;
   padding: 0 12px;
 }
