@@ -114,12 +114,13 @@ textarea {
 .search-input {
   flex: 1;
   min-width: 0;
-  padding: 8px 10px;
+  padding: 12px 10px;
   border: none;
   border-radius: 8px;
   background: transparent;
   color: inherit;
   appearance: none;
+  line-height: 1.4;
 }
 
 .search-input:focus {
@@ -176,13 +177,14 @@ textarea {
 
 /* Update url-input width to be 100% since container will control max width */
 .url-input {
-  padding: 8px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--surface-border);
   border-radius: 12px;
   width: 100%;
   background: var(--surface-color);
   color: inherit;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  line-height: 1.4;
 }
 
 
